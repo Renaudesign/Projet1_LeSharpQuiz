@@ -1,0 +1,13 @@
+C:\Users\Renaud\Desktop\LAMANU\Projet1_Quizz\obj\Debug\netcoreapp3.1\Projet1_Quizz.csprojAssemblyReference.cache
+C:\Users\Renaud\Desktop\LAMANU\Projet1_Quizz\obj\Debug\netcoreapp3.1\Projet1_Quizz.AssemblyInfoInputs.cache
+C:\Users\Renaud\Desktop\LAMANU\Projet1_Quizz\obj\Debug\netcoreapp3.1\Projet1_Quizz.AssemblyInfo.cs
+C:\Users\Renaud\Desktop\LAMANU\Projet1_Quizz\obj\Debug\netcoreapp3.1\Projet1_Quizz.csproj.CoreCompileInputs.cache
+C:\Users\Renaud\Desktop\LAMANU\Projet1_Quizz\bin\Debug\netcoreapp3.1\Projet1_Quizz.exe
+C:\Users\Renaud\Desktop\LAMANU\Projet1_Quizz\bin\Debug\netcoreapp3.1\Projet1_Quizz.deps.json
+C:\Users\Renaud\Desktop\LAMANU\Projet1_Quizz\bin\Debug\netcoreapp3.1\Projet1_Quizz.runtimeconfig.json
+C:\Users\Renaud\Desktop\LAMANU\Projet1_Quizz\bin\Debug\netcoreapp3.1\Projet1_Quizz.runtimeconfig.dev.json
+C:\Users\Renaud\Desktop\LAMANU\Projet1_Quizz\bin\Debug\netcoreapp3.1\Projet1_Quizz.dll
+C:\Users\Renaud\Desktop\LAMANU\Projet1_Quizz\bin\Debug\netcoreapp3.1\Projet1_Quizz.pdb
+C:\Users\Renaud\Desktop\LAMANU\Projet1_Quizz\obj\Debug\netcoreapp3.1\Projet1_Quizz.dll
+C:\Users\Renaud\Desktop\LAMANU\Projet1_Quizz\obj\Debug\netcoreapp3.1\Projet1_Quizz.pdb
+C:\Users\Renaud\Desktop\LAMANU\Projet1_Quizz\obj\Debug\netcoreapp3.1\Projet1_Quizz.genruntimeconfig.cache
