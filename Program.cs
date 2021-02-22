@@ -14,7 +14,7 @@ namespace Projet1_Quizz
             Console.WriteLine("Entrez votre prénom : ");
             string sprenom = Console.ReadLine();
             Console.WriteLine($"Bonjour {snom} {sprenom}, Bienvenue à notre quiz, êtes-vous prêt à améliorer vos connaissance en C# ? ");
-            Console.WriteLine("Taper entrée pour démarrer le test");
+            Console.WriteLine("Tapez entrée pour démarrer le test");
             Console.ReadKey();
             
         }
