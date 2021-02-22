@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Renaud\\Desktop\\LAMANU\\Projet1_Quizz\\Projet1_Quizz.csproj": {}
+    "C:\\Users\\Benoît\\code\\lamanu\\quizzGame\\Projet1_LeSharpQuiz\\Projet1_Quizz.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Renaud\\Desktop\\LAMANU\\Projet1_Quizz\\Projet1_Quizz.csproj": {
+    "C:\\Users\\Benoît\\code\\lamanu\\quizzGame\\Projet1_LeSharpQuiz\\Projet1_Quizz.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Renaud\\Desktop\\LAMANU\\Projet1_Quizz\\Projet1_Quizz.csproj",
+        "projectUniqueName": "C:\\Users\\Benoît\\code\\lamanu\\quizzGame\\Projet1_LeSharpQuiz\\Projet1_Quizz.csproj",
         "projectName": "Projet1_Quizz",
-        "projectPath": "C:\\Users\\Renaud\\Desktop\\LAMANU\\Projet1_Quizz\\Projet1_Quizz.csproj",
-        "packagesPath": "C:\\Users\\Renaud\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Renaud\\Desktop\\LAMANU\\Projet1_Quizz\\obj\\",
+        "projectPath": "C:\\Users\\Benoît\\code\\lamanu\\quizzGame\\Projet1_LeSharpQuiz\\Projet1_Quizz.csproj",
+        "packagesPath": "C:\\Users\\Benoît\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Benoît\\code\\lamanu\\quizzGame\\Projet1_LeSharpQuiz\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Renaud\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Benoît\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
