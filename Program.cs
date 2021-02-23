@@ -1,4 +1,6 @@
 ﻿using System;
+using Newtonsoft.Json;
+
 using System.Collections.Generic;
 
 namespace Projet1_Quizz
@@ -7,6 +9,8 @@ namespace Projet1_Quizz
     {
         static void Main(string[] args)
         {
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+
             Console.WriteLine("Le Quizzzzzz");
             Console.WriteLine("Entrez votre nom : ");
             string nom = Console.ReadLine();
@@ -19,13 +23,17 @@ namespace Projet1_Quizz
             Console.ReadKey();    
 
             string[][] blocks = new string[10][];
+
             blocks[0] = new string[] {
                 @"Quel est le lien entre la plateforme .NET et C# ?",
                 @"Les applications .NET peuvent être écrit en C#",
                 @".NET fait partie de C#",
                 @".NET est identique à C#",
-                @".NET n'est pas lié à C#"
-            };
+                @".NET n'est pas lié à C#"               
+        };
+            Random rnd = new Random();
+            Console.WriteLine(blocks[rnd.Next(0, 4)]);
+
             blocks[1] = new string[]
             {
                 @"En C, quelle est la séquence d'échappement correcte pour mettre une nouvelle ligne dans une chaîne de caractère « string » ?",
@@ -103,9 +111,23 @@ namespace Projet1_Quizz
                 @"Console.readLine();"
             };
 
-            // A la fin du quiz, vous devrez afficher un récapitulatif en donnant le score du candidat et les bonnes réponses.
-            ($"Bravo {nom} {prenom}, votre score est de {} voici les bonnes réponses au questionnaire {}");
+            //A la fin du quiz, vous devrez afficher un récapitulatif en donnant le score du candidat et les bonnes réponses.
+            //($"Bravo {nom} {prenom}, votre score est de {} voici les bonnes réponses au questionnaire {}");
 
+            ////////////////////////////////////////////////////////////////////////////////////////////////////
+
+            //Phase 1  - creation de l'objet
+            Questionnaire question = new Questionnaire() {Quiz = "Quelle ligne de commande est utilisée pour lire une entrée(input) de l’utilisateur en C# ?", A = "Console.ReadLine();", B = "Console.writeLine();", C = "Console.WriteLine();", D = "Console.readLine();" };            
+
+            public class Questionnaire
+        {
+            public string Quiz { get; set; }
+            public string A { get; set; }
+            public string B { get; set; }
+            public string C { get; set; }
+            public string D { get; set; }
         }
+
+    }
     }
 }
