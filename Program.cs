@@ -126,7 +126,6 @@ namespace quizzGame
                 {
                     // bool argument of ReadKey() is for hiding user key stroke on console
                     keyPress = Console.ReadKey(true);
-                    // Console.WriteLine($"Vous avez appuyé sur : < {keyPress.Key.ToString()} >");
                     if (keyPress.Key == ConsoleKey.A) userChoice = 1;
                     else if (keyPress.Key == ConsoleKey.B) userChoice = 2;
                     else if (keyPress.Key == ConsoleKey.C) userChoice = 3;
