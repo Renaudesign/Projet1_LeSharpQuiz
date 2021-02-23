@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace quizzGame
 {
@@ -39,6 +40,10 @@ namespace quizzGame
             
             Console.Clear();
 
+
+            // survey is an array of arrays made of strings.
+            // Each inner array corresponds to a step in survey with 5 strings corresponding to :
+            // 1. question 2. the answer 3. 4. & 5. other choices
 
 
             string[][] survey = new string[10][];
@@ -118,44 +123,43 @@ namespace quizzGame
                 @"Supprimez l'élément de tableau à l'index 4"
             };
             survey[9] = new string[]
-           {
+            {
                 @"Quelle ligne de commande est utilisée pour lire une entrée(input) de l’utilisateur en C# ?",
                 @"Console.ReadLine();",
                 @"Console.writeLine();",
                 @"Console.WriteLine();",
                 @"Console.readLine();"
-           };
+            };
 
-
-            int[] userAnswers = new int[survey.Length];
+            string[] userAnswers = new string[survey.Length];
+            string[] goodAnswers = new string[survey.Length];
             int userScore = 0;
 
-            void displayQuestion(string[] questionAnswers)
+            Console.WriteLine("Bienvenue dans le quizz C#. 10 questions vous seront posées pour vérfier vos connaissances. Pour chaque question vous seront proposées 4 réponses. Vous pouvez séléctionner une réponse en tapant la lettre associée <A>, <B>, <C> ou <D> puis valider avec <Entrée> et passer à la question suivante\nBon quizz!\n");
+
+            void displayQuestion(int questionNumber, string question, string[] choices)
             {
                 char incLetter = 'A';
-                Console.BackgroundColor = ConsoleColor.DarkBlue;
-                Console.WriteLine("\n" + questionAnswers[0]);
-                Console.BackgroundColor = ConsoleColor.Blue;
-                Console.WriteLine("------------------------");
-                for (int i = 1; i < questionAnswers.Length; i++)
+                Console.WriteLine($"\n {questionNumber}/ {question}"); 
+                    Console.WriteLine("------------------------");
+                foreach(string choice in choices)
                 {
-                    Console.WriteLine($"{incLetter} - {questionAnswers[i]}");
-                    incLetter++;}
+                    Console.WriteLine($"{incLetter} - {choice}");
+                    incLetter++;
+                }
             }
-            int getAnswer()
+            int getUserChoice()
             {
                 int userChoice = 0;
                 bool exit = false;
                 ConsoleKeyInfo keyPress;
 
-                Console.WriteLine("\nAppuyez sur les <A> <B> <C> <D> puis <Entrée> pour valider");
+                Console.WriteLine("Appuyez sur les <A> <B> <C> <D> puis <Entrée> pour valider");
                 while (!exit)
                 {
                     // bool argument of ReadKey() is for hiding user key stroke on console
                     keyPress = Console.ReadKey(true);
-
-                    // modifier l'entrée du tableau pour lui ajouter les pipes signifiant qu'elle est sélectionnée
-
+                    // Console.WriteLine($"Vous avez appuyé sur : < {keyPress.Key.ToString()} >");
                     Console.WriteLine($"Vous avez appuyé sur : < {keyPress.Key.ToString()} >");
                     if (keyPress.Key == ConsoleKey.A)
                     {
@@ -174,27 +178,53 @@ namespace quizzGame
                         exit = true;
                         Console.Clear();}
 
-
-                    Console.WriteLine("Vous avez choisi la reponse : " + userChoice);
-
                 }
 
                 return userChoice;
-
             }
 
 
             for (int i = 0; i < survey.Length; i++)
             {
-                displayQuestion(survey[i]);
-                userAnswers[i] = getAnswer();
-                if (userAnswers[i] == 1) userScore++;
+                // 1st string in array is always question
+                // 2nd string in array is the good answer
+                // 3rd, 4th and 5th strings are other choices
+                // All 4 choices get their order randomized and good answer get stored in variable
+                string question = survey[i][0];
+                string goodAnswer = survey[i][1];
+                string[] choices = new string[] {
+                survey[i][1],
+                survey[i][2],
+                survey[i][3],
+                survey[i][4]
+                };
+                Random random = new Random();
+                choices = choices.OrderBy(x => random.Next()).ToArray();
+                displayQuestion(i + 1, question, choices);
+                Console.WriteLine(" Choices array : " + choices);
+                Console.WriteLine(choices[0]);
+                
+                userAnswers[i] = choices[getUserChoice() - 1];
+                goodAnswers[i] = goodAnswer;
+
             }
-            // A la fin du quizz, vous devrez afficher un récapitulatif en donnant le score du candidat et les bonnes réponses.
-            Console.WriteLine($"Bravo {nom} {prenom}, votre score est de {userScore} sur {survey.Length}.\ndVoici les bonnes réponses au questionnaire: ");
 
+            Console.WriteLine("Bravo, vous avez terminé le questionnaire. Voici la correction : ");
+            for (int i = 0; i < survey.Length; i++)
+            {
+                Console.WriteLine($"Question {i + 1}/ {survey[i][0]}");
+                Console.WriteLine($"Vous avez répondu : \n {userAnswers[i]}");
+                if (userAnswers[i] == goodAnswers[i])
+                {
+                    userScore++;
+                    Console.WriteLine("C'était la bonne réponse. +1 point");
+                } else
+                {
+                    Console.WriteLine($"La bonne réponse était : \n {goodAnswers[i]}");
+                }
+            }
 
-
+            Console.WriteLine($" Vous obtenez le score de {userScore} points sur {survey.Length}");
 
         }
 
