@@ -1,23 +1,45 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Projet1_Quizz
+namespace quizzGame
 {
     class Program
     {
         static void Main(string[] args)
         {
+            //Introduction du test avec demande d'infos
+            
+            Console.BackgroundColor = ConsoleColor.Blue;
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.Clear();
+            Console.WriteLine("---------------------" +
+                              "\n|| Le Sharp Quizz ||" +
+                              "\n---------------------");
+                                
 
-            Console.WriteLine("Le Quizzzzzz");
-            Console.WriteLine("Entrez votre nom : ");
+            Console.WriteLine("\nEntrez votre nom : ");
             string nom = Console.ReadLine();
-            Console.WriteLine("Entrez votre prénom : ");
+            Console.WriteLine("\nEntrez votre prénom : ");
             string prenom = Console.ReadLine();
-            Console.WriteLine($"Bonjour {nom} {prenom}, Bienvenue dans le quizz C#. \n 10 questions vous seront posées pour vérfier vos connaissances." +
-                $"\n Pour chaque question vous seront proposées 4 réponses." +
-                $"\n Vous pouvez séléctionner une réponse en tapant la lettre associée <A>, <B>, <C> ou <D> puis valider avec <Entrée>\nBon quizz!");
-            Console.WriteLine("Taper entrée pour démarrer le test");
-            Console.ReadKey();
+            Console.WriteLine($"\nBonjour {nom} {prenom}, Bienvenue dans le quizz C#. \n\n10 questions vous seront posées pour vérfier vos connaissances." +
+                $"\nPour chaque question vous seront proposées 4 réponses." +
+                $"\nVous pouvez séléctionner une réponse en tapant la lettre associée <A>, <B>, <C> ou <D> puis valider avec <Entrée>\n\nBon quizz!");
+            
+
+            //Loop de vérification sur la touche Entrée pour lancer le test
+            bool startTest = false;
+            do
+            {
+                Console.WriteLine("\nTapez entrée pour démarrer le test");
+                ConsoleKeyInfo checkKey = Console.ReadKey(true);
+                if (checkKey.Key == ConsoleKey.Enter)
+                {
+                    startTest = true;};
+            } while (!startTest);
+            
+            Console.Clear();
+
+
 
             string[][] survey = new string[10][];
             survey[0] = new string[] {
@@ -96,17 +118,87 @@ namespace Projet1_Quizz
                 @"Supprimez l'élément de tableau à l'index 4"
             };
             survey[9] = new string[]
-            {
+           {
                 @"Quelle ligne de commande est utilisée pour lire une entrée(input) de l’utilisateur en C# ?",
                 @"Console.ReadLine();",
                 @"Console.writeLine();",
                 @"Console.WriteLine();",
                 @"Console.readLine();"
-            };
+           };
 
-            // A la fin du quiz, vous devrez afficher un récapitulatif en donnant le score du candidat et les bonnes réponses.
-            ($"Bravo {nom} {prenom}, votre score est de {} voici les bonnes réponses au questionnaire {}");
+
+            int[] userAnswers = new int[survey.Length];
+            int userScore = 0;
+
+            void displayQuestion(string[] questionAnswers)
+            {
+                char incLetter = 'A';
+                Console.BackgroundColor = ConsoleColor.DarkBlue;
+                Console.WriteLine("\n" + questionAnswers[0]);
+                Console.BackgroundColor = ConsoleColor.Blue;
+                Console.WriteLine("------------------------");
+                for (int i = 1; i < questionAnswers.Length; i++)
+                {
+                    Console.WriteLine($"{incLetter} - {questionAnswers[i]}");
+                    incLetter++;}
+            }
+            int getAnswer()
+            {
+                int userChoice = 0;
+                bool exit = false;
+                ConsoleKeyInfo keyPress;
+
+                Console.WriteLine("\nAppuyez sur les <A> <B> <C> <D> puis <Entrée> pour valider");
+                while (!exit)
+                {
+                    // bool argument of ReadKey() is for hiding user key stroke on console
+                    keyPress = Console.ReadKey(true);
+
+                    // modifier l'entrée du tableau pour lui ajouter les pipes signifiant qu'elle est sélectionnée
+
+                    Console.WriteLine($"Vous avez appuyé sur : < {keyPress.Key.ToString()} >");
+                    if (keyPress.Key == ConsoleKey.A)
+                    {
+                        userChoice = 1;}
+                    else if (keyPress.Key == ConsoleKey.B)
+                    {
+                        userChoice = 2;}
+                    else if (keyPress.Key == ConsoleKey.C)
+                    {
+                        userChoice = 3;}
+                    else if (keyPress.Key == ConsoleKey.D)
+                    {
+                        userChoice = 4;}
+                    else if (keyPress.Key == ConsoleKey.Enter && userChoice != 0)
+                    {
+                        exit = true;
+                        Console.Clear();}
+
+
+                    Console.WriteLine("Vous avez choisi la reponse : " + userChoice);
+
+                }
+
+                return userChoice;
+
+            }
+
+
+            for (int i = 0; i < survey.Length; i++)
+            {
+                displayQuestion(survey[i]);
+                userAnswers[i] = getAnswer();
+                if (userAnswers[i] == 1) userScore++;
+            }
+            // A la fin du quizz, vous devrez afficher un récapitulatif en donnant le score du candidat et les bonnes réponses.
+            Console.WriteLine($"Bravo {nom} {prenom}, votre score est de {userScore} sur {survey.Length}.\ndVoici les bonnes réponses au questionnaire: ");
+
+
+
 
         }
+
+
     }
 }
+
