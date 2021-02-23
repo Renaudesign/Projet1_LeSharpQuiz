@@ -10,7 +10,7 @@ namespace quizzGame
         {
             //Introduction du test avec demande d'infos
             
-            Console.BackgroundColor = ConsoleColor.Blue;
+            Console.BackgroundColor = ConsoleColor.DarkBlue;
             Console.ForegroundColor = ConsoleColor.White;
             Console.Clear();
             Console.WriteLine("---------------------" +
@@ -134,53 +134,63 @@ namespace quizzGame
             string[] userAnswers = new string[survey.Length];
             string[] goodAnswers = new string[survey.Length];
             int userScore = 0;
+            int currentChoice = 0;
+            bool userValidation = false;
 
             void displayQuestion(int questionNumber, string question, string[] choices)
             {
                 char incLetter = 'A';
-                Console.BackgroundColor = ConsoleColor.DarkBlue;
-                Console.WriteLine($"\n{questionNumber}/ {question}");
                 Console.BackgroundColor = ConsoleColor.Blue;
+                Console.WriteLine($"\n{questionNumber}/ {question}");
+                Console.BackgroundColor = ConsoleColor.DarkBlue;
                 Console.WriteLine("------------------------");
-                foreach(string choice in choices)
+                
+                for (int i = 0; i < choices.Length; i++)
                 {
-                    Console.WriteLine($"{incLetter} - {choice}");
+                    if (currentChoice == i + 1)
+                    {
+                        //Console.ForegroundColor = ConsoleColor.Black;
+                        Console.BackgroundColor = ConsoleColor.DarkYellow;
+                    } else
+                    {
+                        Console.BackgroundColor = ConsoleColor.DarkBlue;
+                    }
+                    Console.WriteLine($"{incLetter} - {choices[i]}");
+                    Console.BackgroundColor = ConsoleColor.DarkBlue;
                     incLetter++;
                 }
             }
-            int getUserChoice()
+            void getUserChoice()
             {
-                int userChoice = 0;
                 bool exit = false;
                 ConsoleKeyInfo keyPress;
 
                 Console.WriteLine("\nAppuyez sur les <A> <B> <C> <D> puis <Entrée> pour valider");
-                while (!exit)
-                {
+                
                     // bool argument of ReadKey() is for hiding user key stroke on console
                     keyPress = Console.ReadKey(true);
                     // Console.WriteLine($"Vous avez appuyé sur : < {keyPress.Key.ToString()} >");
-                    Console.WriteLine($"Vous avez appuyé sur : < {keyPress.Key.ToString()} >");
                     if (keyPress.Key == ConsoleKey.A)
                     {
-                        userChoice = 1;}
+                        currentChoice = 1;
+                        }
                     else if (keyPress.Key == ConsoleKey.B)
                     {
-                        userChoice = 2;}
+                        currentChoice = 2;}
                     else if (keyPress.Key == ConsoleKey.C)
                     {
-                        userChoice = 3;}
+                        currentChoice = 3;}
                     else if (keyPress.Key == ConsoleKey.D)
                     {
-                        userChoice = 4;}
-                    else if (keyPress.Key == ConsoleKey.Enter && userChoice != 0)
+                        currentChoice = 4;}
+                    else if (keyPress.Key == ConsoleKey.Enter && currentChoice != 0)
                     {
-                        exit = true;
-                        Console.Clear();}
+                        userValidation = true;
+                    }
 
-                }
+                    Console.Clear();
+                
 
-                return userChoice;
             }
 
 
@@ -192,19 +202,26 @@ namespace quizzGame
                 // All 4 choices get their order randomized and good answer get stored in variable
                 string question = survey[i][0];
                 string goodAnswer = survey[i][1];
+
+                // Initialise for each new question
+                currentChoice = 0;
+                userValidation = false;
+
+                // TODO : assign from a range of array instead of hard coding indexes
                 string[] choices = new string[] {
-                survey[i][1],
-                survey[i][2],
-                survey[i][3],
-                survey[i][4]
+                    survey[i][1],
+                    survey[i][2],
+                    survey[i][3],
+                    survey[i][4]
                 };
                 Random random = new Random();
                 choices = choices.OrderBy(x => random.Next()).ToArray();
-                displayQuestion(i + 1, question, choices);
-                //Console.WriteLine(" Choices array : " + choices);
-                //Console.WriteLine(choices[0]);
-                
-                userAnswers[i] = choices[getUserChoice() - 1];
+                do
+                {
+                    displayQuestion(i + 1, question, choices);
+                    getUserChoice();
+                } while (!userValidation);
+                userAnswers[i] = choices[currentChoice - 1];
                 goodAnswers[i] = goodAnswer;
 
             }
@@ -212,9 +229,9 @@ namespace quizzGame
             Console.WriteLine("Bravo, vous avez terminé le questionnaire. Voici la correction : ");
             for (int i = 0; i < survey.Length; i++)
             {
-                Console.BackgroundColor = ConsoleColor.DarkBlue;
-                Console.WriteLine($"\nQuestion {i + 1}/ {survey[i][0]}");
                 Console.BackgroundColor = ConsoleColor.Blue;
+                Console.WriteLine($"\nQuestion {i + 1}/ {survey[i][0]}");
+                Console.BackgroundColor = ConsoleColor.DarkBlue;
                 Console.WriteLine($"Vous avez répondu : \n{userAnswers[i]}");
                 if (userAnswers[i] == goodAnswers[i])
                 {
