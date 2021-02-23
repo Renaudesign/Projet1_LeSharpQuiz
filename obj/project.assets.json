@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Benoît\\code\\lamanu\\quizzGame\\Projet1_LeSharpQuiz\\Projet1_Quizz.csproj",
+      "projectUniqueName": "C:\\Users\\Benoît\\code\\lamanu\\Projet1_LeSharpQuiz\\Projet1_Quizz.csproj",
       "projectName": "Projet1_Quizz",
-      "projectPath": "C:\\Users\\Benoît\\code\\lamanu\\quizzGame\\Projet1_LeSharpQuiz\\Projet1_Quizz.csproj",
+      "projectPath": "C:\\Users\\Benoît\\code\\lamanu\\Projet1_LeSharpQuiz\\Projet1_Quizz.csproj",
       "packagesPath": "C:\\Users\\Benoît\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Benoît\\code\\lamanu\\quizzGame\\Projet1_LeSharpQuiz\\obj\\",
+      "outputPath": "C:\\Users\\Benoît\\code\\lamanu\\Projet1_LeSharpQuiz\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Benoît\\AppData\\Roaming\\NuGet\\NuGet.Config",
