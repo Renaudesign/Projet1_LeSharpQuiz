@@ -27,7 +27,7 @@ namespace quizzGame
                 $"\nVous pouvez séléctionner une réponse en tapant la lettre associée <A>, <B>, <C> ou <D> puis valider avec <Entrée>\n\nBon quizz!");
             
 
-            //Loop de vérification sur la touche Entrée pour lancer le test
+            //Loop de vérification sur la touche Entrée pour lancer le test. Le test ne démarre pas tant que la bonne touche n'est pas entrée
             bool startTest = false;
             do
             {
@@ -135,13 +135,13 @@ namespace quizzGame
             string[] goodAnswers = new string[survey.Length];
             int userScore = 0;
 
-            Console.WriteLine("Bienvenue dans le quizz C#. 10 questions vous seront posées pour vérfier vos connaissances. Pour chaque question vous seront proposées 4 réponses. Vous pouvez séléctionner une réponse en tapant la lettre associée <A>, <B>, <C> ou <D> puis valider avec <Entrée> et passer à la question suivante\nBon quizz!\n");
-
             void displayQuestion(int questionNumber, string question, string[] choices)
             {
                 char incLetter = 'A';
-                Console.WriteLine($"\n {questionNumber}/ {question}"); 
-                    Console.WriteLine("------------------------");
+                Console.BackgroundColor = ConsoleColor.DarkBlue;
+                Console.WriteLine($"\n{questionNumber}/ {question}");
+                Console.BackgroundColor = ConsoleColor.Blue;
+                Console.WriteLine("------------------------");
                 foreach(string choice in choices)
                 {
                     Console.WriteLine($"{incLetter} - {choice}");
@@ -154,7 +154,7 @@ namespace quizzGame
                 bool exit = false;
                 ConsoleKeyInfo keyPress;
 
-                Console.WriteLine("Appuyez sur les <A> <B> <C> <D> puis <Entrée> pour valider");
+                Console.WriteLine("\nAppuyez sur les <A> <B> <C> <D> puis <Entrée> pour valider");
                 while (!exit)
                 {
                     // bool argument of ReadKey() is for hiding user key stroke on console
@@ -201,8 +201,8 @@ namespace quizzGame
                 Random random = new Random();
                 choices = choices.OrderBy(x => random.Next()).ToArray();
                 displayQuestion(i + 1, question, choices);
-                Console.WriteLine(" Choices array : " + choices);
-                Console.WriteLine(choices[0]);
+                //Console.WriteLine(" Choices array : " + choices);
+                //Console.WriteLine(choices[0]);
                 
                 userAnswers[i] = choices[getUserChoice() - 1];
                 goodAnswers[i] = goodAnswer;
@@ -212,15 +212,17 @@ namespace quizzGame
             Console.WriteLine("Bravo, vous avez terminé le questionnaire. Voici la correction : ");
             for (int i = 0; i < survey.Length; i++)
             {
-                Console.WriteLine($"Question {i + 1}/ {survey[i][0]}");
-                Console.WriteLine($"Vous avez répondu : \n {userAnswers[i]}");
+                Console.BackgroundColor = ConsoleColor.DarkBlue;
+                Console.WriteLine($"\nQuestion {i + 1}/ {survey[i][0]}");
+                Console.BackgroundColor = ConsoleColor.Blue;
+                Console.WriteLine($"Vous avez répondu : \n{userAnswers[i]}");
                 if (userAnswers[i] == goodAnswers[i])
                 {
                     userScore++;
                     Console.WriteLine("C'était la bonne réponse. +1 point");
                 } else
                 {
-                    Console.WriteLine($"La bonne réponse était : \n {goodAnswers[i]}");
+                    Console.WriteLine($"La bonne réponse était : \n{goodAnswers[i]}");
                 }
             }
 
