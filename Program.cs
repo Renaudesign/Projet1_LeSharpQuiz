@@ -64,28 +64,24 @@ namespace quizzGame
                     // bool argument of ReadKey() is for hiding user key stroke on console
                     keyPress = Console.ReadKey(true);
                     Console.WriteLine($"Vous avez appuyé sur : < {keyPress.Key.ToString()} >");
+                    if (keyPress.Key == ConsoleKey.A) userChoice = 1;
+                    else if (keyPress.Key == ConsoleKey.B) userChoice = 2;
+                    else if (keyPress.Key == ConsoleKey.C) userChoice = 3;
+                    else if (keyPress.Key == ConsoleKey.D) userChoice = 4;
+                    else if (keyPress.Key == ConsoleKey.Enter && userChoice != 0) exit = true;
+
+                    Console.WriteLine("Vous avez choisi la reponse : " + userChoice);
                 }
 
                 return userChoice;
             }
 
 
-            foreach (string[] question in survey)
-            {
-                displayQuestion(question);
-                
-            }
-
             for (int i = 0; i < survey.Length; i++)
             {
                 displayQuestion(survey[i]);
                 userAnswers[i] = getAnswer();
             }
-            
-
-
-
-
 
         }
     }
