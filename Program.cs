@@ -1,5 +1,6 @@
 ﻿using System;
-using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace quizzGame
 {
@@ -97,22 +98,24 @@ namespace quizzGame
                 @"Console.readLine();"
             };
 
-            int[] userAnswers = new int[survey.Length];
+            string[] userAnswers = new string[survey.Length];
+            string[] goodAnswers = new string[survey.Length];
             int userScore = 0;
 
             Console.WriteLine("Bienvenue dans le quizz C#. 10 questions vous seront posées pour vérfier vos connaissances. Pour chaque question vous seront proposées 4 réponses. Vous pouvez séléctionner une réponse en tapant la lettre associée <A>, <B>, <C> ou <D> puis valider avec <Entrée> et passer à la question suivante\nBon quizz!\n");
 
-            void displayQuestion(string[] questionAnswers)
+            void displayQuestion(int questionNumber, string question, string[] choices)
             {
                 char incLetter = 'A';
-                Console.WriteLine("\n" + questionAnswers[0]);
+                Console.WriteLine($"\n {questionNumber}/ {question}"); 
                     Console.WriteLine("------------------------");
-                for (int i = 1; i < questionAnswers.Length; i++) {
-                    Console.WriteLine($"{incLetter} - {questionAnswers[i]}");
+                foreach(string choice in choices)
+                {
+                    Console.WriteLine($"{incLetter} - {choice}");
                     incLetter++;
-                    } 
+                }
             }
-            int getAnswer()
+            int getUserChoice()
             {
                 int userChoice = 0;
                 bool exit = false;
@@ -123,14 +126,13 @@ namespace quizzGame
                 {
                     // bool argument of ReadKey() is for hiding user key stroke on console
                     keyPress = Console.ReadKey(true);
-                    // Console.WriteLine($"Vous avez appuyé sur : < {keyPress.Key.ToString()} >");
+                    // Console.WriteLine($"Vous avez appuyé sur : < {keyPress.Key.ToString()} >");
                     if (keyPress.Key == ConsoleKey.A) userChoice = 1;
                     else if (keyPress.Key == ConsoleKey.B) userChoice = 2;
                     else if (keyPress.Key == ConsoleKey.C) userChoice = 3;
                     else if (keyPress.Key == ConsoleKey.D) userChoice = 4;
                     else if (keyPress.Key == ConsoleKey.Enter && userChoice != 0) exit = true;
 
-                    Console.WriteLine("Vous avez choisi la reponse : " + userChoice);
                 }
 
                 return userChoice;
@@ -139,18 +141,42 @@ namespace quizzGame
 
             for (int i = 0; i < survey.Length; i++)
             {
+                // 1st string in array is always question
+                // 2nd string in array is the good answer
+                // 3rd, 4th and 5th strings are other choices
+                // All 4 choices get their order randomized and good answer get stored in variable
                 string question = survey[i][0];
                 string goodAnswer = survey[i][1];
                 string[] choices = new string[] {
                 survey[i][1],
                 survey[i][2],
-                survey[i][3]
+                survey[i][3],
+                survey[i][4]
                 };
                 Random random = new Random();
+                choices = choices.OrderBy(x => random.Next()).ToArray();
+                displayQuestion(i + 1, question, choices);
+                Console.WriteLine(" Choices array : " + choices);
+                Console.WriteLine(choices[0]);
                 
-                displayQuestion(survey[i]);
-                userAnswers[i] = getAnswer();
-                if (userAnswers[i] == 1) userScore++;
+                userAnswers[i] = choices[getUserChoice() - 1];
+                goodAnswers[i] = goodAnswer;
+
+            }
+
+            Console.WriteLine("Bravo, vous avez terminé le questionnaire. Voici la correction : ");
+            for (int i = 0; i < survey.Length; i++)
+            {
+                Console.WriteLine($"Question {i + 1}/ {survey[i][0]}");
+                Console.WriteLine($"Vous avez répondu : \n {userAnswers[i]}");
+                if (userAnswers[i] == goodAnswers[i])
+                {
+                    userScore++;
+                    Console.WriteLine("C'était la bonne réponse. +1 point");
+                } else
+                {
+                    Console.WriteLine($"La bonne réponse était : \n {goodAnswers[i]}");
+                }
             }
 
             Console.WriteLine($" Vous obtenez le score de {userScore} points sur {survey.Length}");
