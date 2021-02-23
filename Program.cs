@@ -131,10 +131,12 @@ namespace quizzGame
                 @"Console.readLine();"
             };
 
+            //créations des listes de bonnes réponses et de réponses utilisateur, ainsi que du score qui serviront plus tard
             string[] userAnswers = new string[survey.Length];
             string[] goodAnswers = new string[survey.Length];
             int userScore = 0;
 
+            //affichage de la question avec ses réponses
             void displayQuestion(int questionNumber, string question, string[] choices)
             {
                 char incLetter = 'A';
@@ -201,9 +203,7 @@ namespace quizzGame
                 Random random = new Random();
                 choices = choices.OrderBy(x => random.Next()).ToArray();
                 displayQuestion(i + 1, question, choices);
-                //Console.WriteLine(" Choices array : " + choices);
-                //Console.WriteLine(choices[0]);
-                
+                               
                 userAnswers[i] = choices[getUserChoice() - 1];
                 goodAnswers[i] = goodAnswer;
 
@@ -222,11 +222,15 @@ namespace quizzGame
                     Console.WriteLine("C'était la bonne réponse. +1 point");
                 } else
                 {
-                    Console.WriteLine($"La bonne réponse était : \n{goodAnswers[i]}");
+                    
+                    Console.WriteLine($"La bonne réponse était :");
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.WriteLine($"{goodAnswers[i]}");
+                    Console.ForegroundColor = ConsoleColor.White;
                 }
             }
 
-            Console.WriteLine($" Vous obtenez le score de {userScore} points sur {survey.Length}");
+            Console.WriteLine($"\nVous obtenez le score de {userScore} points sur {survey.Length}");
 
         }
 
